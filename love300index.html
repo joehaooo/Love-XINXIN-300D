@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>300天纪念日快乐！</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: linear-gradient(135deg, #ffe4e8 0%, #ffc0cb 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            text-align: center;
+            color: #d14780;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 35px 20px;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.9);
+        }
+        h1 {
+            font-size: 2.1em;
+            margin: 0 0 12px 0;
+            color: #ff3377;
+            text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.3);
+        }
+        .subtitle {
+            font-size: 1.05em;
+            color: #a04064;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-items: center;
+            margin-bottom: 25px;
+        }
+        .character-card {
+            background: #ffffff;
+            width: 125px;
+            height: 125px;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(255, 182, 193, 0.5);
+            transition: all 0.25s ease;
+            border: 3px solid #ffedf0;
+        }
+        .character-card:hover, .character-card:active {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.45);
+            border-color: #ff99bb;
+        }
+        .emoji {
+            font-size: 3.2em;
+            margin-bottom: 4px;
+        }
+        .name-tag {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #ff6699;
+        }
+        .tip-text {
+            font-size: 0.9em;
+            color: #b05070;
+            margin-top: 10px;
+        }
+
+        /* 弹窗样式 */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            z-index: 99;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 85%;
+            max-width: 340px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 30px 22px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 100;
+            border: 4px solid #ffccd8;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .modal.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .modal-icon {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+        .modal-title {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #ff3377;
+            margin-bottom: 12px;
+        }
+        .modal-msg {
+            font-size: 1.05em;
+            color: #555555;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .close-btn {
+            background: linear-gradient(135deg, #ff6b95, #ff4071);
+            color: #ffffff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 64, 113, 0.3);
+            transition: transform 0.2s;
+        }
+        .close-btn:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>💖 300天快乐，宝贝！ 💖</h1>
+        <div class="subtitle">不知不觉我们已经相伴了 300 个日夜<br>今天有几位可爱的小伙伴想对你说悄悄话 👇</div>
+
+        <div class="characters-grid">
+            <div class="character-card" onclick="openPopup('🐰', '小兔子说：', '300天快乐呀！愿你的每一天都像吃到了甜甜的胡萝卜一样开心，以后也要一直蹦蹦跳跳、无忧无虑哦！')">
+                <div class="emoji">🐰</div>
+                <div class="name-tag">小兔子</div>
+            </div>
+
+            <div class="character-card" onclick="openPopup('🐱', '小猫咪说：', '喵呜~ 感谢你这300天的温柔陪伴，你笑起来的时候全世界最可爱！我们要永远黏在一起不分开！')">
+                <div class="emoji">🐱</div>
+                <div class="name-tag">小猫咪</div>
+            </div>
+
+            <div class="character-card" onclick="openPopup('🐻', '温暖小熊说：', '给你一个大大的熊抱！未来的每一个300天，我都会像小熊一样守护你，为你遮风挡雨，做你最坚实的后盾！')">
+                <div class="emoji">🐻</div>
+                <div class="name-tag">温暖小熊</div>
+            </div>
+
+            <div class="character-card" onclick="openPopup('🐶', '忠诚小狗说：', '汪汪！你是全世界最棒的女朋友！每一分每一秒都超级超级喜欢你，永远对你心动！')">
+                <div class="emoji">🐶</div>
+                <div class="name-tag">忠诚小狗</div>
+            </div>
+        </div>
+
+        <div class="tip-text">✨ 点击小动物会有专属祝福掉落哦 ✨</div>
+    </div>
+
+    <!-- 弹窗组件 -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="modal" id="modal">
+        <div class="modal-icon" id="mIcon">🐰</div>
+        <div class="modal-title" id="mTitle">小动物说：</div>
+        <div class="modal-msg" id="mMsg">祝福语</div>
+        <button class="close-btn" onclick="closePopup()">收下心意 💖</button>
+    </div>
+
+    <script>
+        function openPopup(icon, title, message) {
+            document.getElementById('mIcon').innerText = icon;
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mMsg').innerText = message;
+            document.getElementById('overlay').style.display = 'block';
+            const modal = document.getElementById('modal');
+            modal.style.display = 'block';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closePopup() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }, 200);
+        }
+    </script>
+</body>
+</html>
